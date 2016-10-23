@@ -1,5 +1,12 @@
 # Object file
 *.o
+*.exe
+
+*.TMP
+*.db
+*.db-shm
+*.db-wal
+*loc.xml
 
 # Ada Library Information
 *.ali

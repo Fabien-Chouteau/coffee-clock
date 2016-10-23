@@ -1,0 +1,30 @@
+--  Use this project to build a native (Linux or Windows) test program for
+--  the user interface.
+--  Requirements: GNAT GPL x86 Windows/Linux and GTKada
+
+with "gtkada";
+with "../Giza/Giza";
+with "../Giza/test/Giza_Test";
+
+project GUI_Test is
+
+   type Build_Type is ("Debug", "Release");
+   for Object_Dir use "obj";
+   type Gtkada_Kind_Type is ("static", "relocatable");
+   Library_Type : Gtkada_Kind_Type := external ("LIBRARY_TYPE");
+   for Main use ("main.adb");
+   for Source_Dirs use ("../src/GUI/**",
+                        "src/**",
+                        "../Giza/gtkada_backend/src/**");
+   for Exec_Dir use ".";
+   Build : Build_Type := external ("Build");
+
+   package Naming is
+      for Spec ("screen_parameters") use "screen_parameters-gtkada_800x480.ads";
+   end Naming;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnat12", "-gnatwa", "-gnatwe", "-gnatyg", "-gnaty-d", "-gnaty0");
+   end Compiler;
+
+end GUI_Test;
