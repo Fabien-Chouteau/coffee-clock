@@ -1,0 +1,3 @@
+[submodule "Giza"]
+	path = Giza
+	url = https://github.com/Fabien-Chouteau/Giza.git
