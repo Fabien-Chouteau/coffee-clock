@@ -1,4 +1,6 @@
 with calandar_100x100;
+with alarm_100x100;
+with clock_100x100;
 with ok_100x100;
 with Giza.GUI;
 with Dialog_Window; use Dialog_Window;

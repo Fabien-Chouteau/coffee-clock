@@ -9,7 +9,7 @@ with Date_Widget;
 package Date_Select_Window is
 
    subtype Parent is Dialog_Window.Instance;
-   type Instance is new Parent (Panel_Size => 100)
+   type Instance is new Parent (Panel_Size => 80)
    with private;
 
    subtype Class is Instance'Class;
@@ -43,7 +43,7 @@ package Date_Select_Window is
 
 private
 
-   type Instance is new Parent (Panel_Size => 100)
+   type Instance is new Parent (Panel_Size => 80)
    with record
       Up_M, Down_M, Up_D, Down_D, Up_Y, Down_Y : aliased Button.Instance;
       Date : aliased Date_Widget.Instance (Show_Day_Of_Week => False);

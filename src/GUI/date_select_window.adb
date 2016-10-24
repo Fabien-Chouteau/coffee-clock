@@ -3,7 +3,7 @@ with Dialog_Window; use Dialog_Window;
 
 with ok_100x100;
 with cancel_100x100;
-with calandar_100x100;
+with calandar_80x80;
 with up_200x100;
 with down_200x100;
 with Date_Widget; use Date_Widget;
@@ -61,7 +61,7 @@ package body Date_Select_Window is
       This.Add_Child (This.Down_Y'Unchecked_Access, (450, 370));
 
       This.Set_Top_Image (ok_100x100.Image'Access);
-      This.Set_Icon_Image (calandar_100x100.Image'Access);
+      This.Set_Icon_Image (calandar_80x80.Image'Access);
       This.Set_Bottom_Image (cancel_100x100.Image'Access);
 
       This.Set_Background (Black);

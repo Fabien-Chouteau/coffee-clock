@@ -6,8 +6,8 @@ with Giza.Events; use Giza.Events;
 with Giza.Types; use Giza.Types;
 with Time_Select_Window;
 with Date_Select_Window;
-with alarm_100x100;
-with clock_100x100;
+with alarm_80x80;
+with clock_80x80;
 
 package Settings_Window is
 
@@ -38,9 +38,9 @@ private
       Alarm, Clock, Calandar, Back : aliased Button.Instance;
       Tile : aliased Tiles.Instance (4, Tiles.Left_Right);
       Select_Alarm : aliased Time_Select_Window.Instance
-        (alarm_100x100.Image'Access);
+        (alarm_80x80.Image'Access);
       Select_Clock : aliased Time_Select_Window.Instance
-        (clock_100x100.Image'Access);
+        (clock_80x80.Image'Access);
       Select_Date  : aliased Date_Select_Window.Instance;
    end record;
 end Settings_Window;

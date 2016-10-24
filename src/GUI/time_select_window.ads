@@ -10,7 +10,7 @@ with Clock_Widget;
 package Time_Select_Window is
 
    subtype Parent is Dialog_Window.Instance;
-   type Instance (Icon : Giza.Image.Ref) is new Parent (Panel_Size => 100)
+   type Instance (Icon : Giza.Image.Ref) is new Parent (Panel_Size => 80)
    with private;
 
    subtype Class is Instance'Class;
@@ -40,7 +40,7 @@ package Time_Select_Window is
 
 private
 
-   type Instance (Icon : Giza.Image.Ref) is new Parent (Panel_Size => 100)
+   type Instance (Icon : Giza.Image.Ref) is new Parent (Panel_Size => 80)
    with record
       Up_Hours, Down_Hours, Up_Minutes, Down_Minutes : aliased Button.Instance;
       Clock        : aliased Clock_Widget.Instance;
