@@ -37,28 +37,28 @@ package body Clock_Widget is
       begin
          case Digit is
             when 0 =>
-               Ctx.Copy_Bitmap (digit_0.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_0.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 1 =>
-               Ctx.Copy_Bitmap (digit_1.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_1.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 2 =>
-               Ctx.Copy_Bitmap (digit_2.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_2.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 3 =>
-               Ctx.Copy_Bitmap (digit_3.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_3.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 4 =>
-               Ctx.Copy_Bitmap (digit_4.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_4.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 5 =>
-               Ctx.Copy_Bitmap (digit_5.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_5.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 6 =>
-               Ctx.Copy_Bitmap (digit_6.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_6.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 7 =>
-               Ctx.Copy_Bitmap (digit_7.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_7.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 8 =>
-               Ctx.Copy_Bitmap (digit_8.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_8.Image.all, (Digit_Pos_X, Digit_Pos_Y));
             when 9 =>
-               Ctx.Copy_Bitmap (digit_9.Data, (Digit_Pos_X, Digit_Pos_Y));
+               Ctx.Draw_Image (digit_9.Image.all, (Digit_Pos_X, Digit_Pos_Y));
          end case;
          --  All digits have the same size
-         Digit_Pos_X := Digit_Pos_X + digit_0.Data.W;
+         Digit_Pos_X := Digit_Pos_X + digit_0.Image.Size.W;
       end Draw_Digit;
 
    begin
@@ -72,8 +72,8 @@ package body Clock_Widget is
       Draw_Digit (Integer (This.Hours) / 10);
       Draw_Digit (Integer (This.Hours) mod 10);
 
-      Ctx.Copy_Bitmap (colon.Data, (Digit_Pos_X, Digit_Pos_Y));
-      Digit_Pos_X := Digit_Pos_X + colon.Data.W;
+      Ctx.Draw_Image (colon.Image.all, (Digit_Pos_X, Digit_Pos_Y));
+      Digit_Pos_X := Digit_Pos_X + colon.Image.Size.W;
 
       Draw_Digit (Integer (This.Minutes) / 10);
       Draw_Digit (Integer (This.Minutes) mod 10);
@@ -112,6 +112,6 @@ package body Clock_Widget is
    -------------------
 
    function Required_Size (This : Instance) return Size_T is
-      ((4 * digit_0.Data.W + colon.Data.W, digit_0.Data.H));
+      ((4 * digit_0.Image.Size.W + colon.Image.Size.W, digit_0.Image.Size.H));
 
 end Clock_Widget;

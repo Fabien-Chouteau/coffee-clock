@@ -1,11 +1,9 @@
 with Giza.Widget.Button;
 use Giza.Widget;
 with Giza.Context;
-with Giza.Image.Editable_Bitmap;
 with Giza.Window;
 with Giza.Events; use Giza.Events;
 with Giza.Types; use Giza.Types;
-
 with Settings_Window;
 with Clock_Widget;
 with Date_Widget;
@@ -44,10 +42,10 @@ package Clock_Window is
                        Month       : Date_Widget.Month_T;
                        Year        : Date_Widget.Year_T);
 private
+
    type Instance is new Parent with record
       Settings_Btn : aliased Button.Instance;
       Settings     : aliased Settings_Window.Instance;
-      Btn_Bitmap   : aliased Giza.Image.Editable_Bitmap.Instance (50, 50);
       Clock        : aliased Clock_Widget.Instance;
       Date         : aliased Date_Widget.Instance (Show_Day_Of_Week => True);
    end record;

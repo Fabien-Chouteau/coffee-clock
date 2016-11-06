@@ -29,8 +29,8 @@ package Clock_Widget is
 private
 
    type Instance is new Parent with record
-      Hours   : Clock_Hour;
-      Minutes : Clock_Minute;
+      Hours   : Clock_Hour   := 12;
+      Minutes : Clock_Minute := 00;
    end record;
 
 end Clock_Widget;

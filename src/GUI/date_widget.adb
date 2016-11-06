@@ -153,9 +153,9 @@ package body Date_Widget is
    function Image (Day : Day_T) return String is
    begin
       return Day'Img & (case Day is
-                           when 1 => "st",
-                           when 2 => "nd",
-                           when 3 => "rd",
+                           when 1 | 21 | 31 => "st",
+                           when 2 | 22 => "nd",
+                           when 3 | 23 => "rd",
                            when others => "th");
    end Image;
 

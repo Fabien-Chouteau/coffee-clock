@@ -19,12 +19,23 @@ project GUI_Test is
    for Exec_Dir use ".";
    Build : Build_Type := external ("Build");
 
+   Build_Switches := ();
+   case Build is
+      when "Debug" =>
+         Build_Switches := ("-g", "-O0");
+      when "Release" =>
+         Build_Switches := ("-O3");
+   end case;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnat12", "-gnatwa", "-gnatwe",
+                                        "-gnatyg", "-gnaty-d", "-gnatw.X",
+                                        "-gnatyO")
+                                        & Build_Switches;
+   end Compiler;
+
    package Naming is
       for Spec ("screen_parameters") use "screen_parameters-gtkada_800x480.ads";
    end Naming;
-
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnat12", "-gnatwa", "-gnatwe", "-gnatyg", "-gnaty-d", "-gnaty0");
-   end Compiler;
 
 end GUI_Test;

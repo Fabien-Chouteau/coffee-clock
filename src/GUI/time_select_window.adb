@@ -1,5 +1,5 @@
-with ok_100x100;
-with cancel_100x100;
+with ok_80x80;
+with cancel_80x80;
 with up_200x100;
 with down_200x100;
 with Dialog_Window; use Dialog_Window;
@@ -21,31 +21,31 @@ package body Time_Select_Window is
 
       This.Up_Hours.Disable_Frame;
       This.Up_Hours.Disable_Background;
-      This.Up_Hours.Set_Image (up_200x100.Image'Access);
+      This.Up_Hours.Set_Image (up_200x100.Image);
       This.Up_Hours.Set_Size ((200, 100));
       This.Add_Child (This.Up_Hours'Unchecked_Access, (75, 10));
 
       This.Up_Minutes.Disable_Frame;
       This.Up_Minutes.Disable_Background;
-      This.Up_Minutes.Set_Image (up_200x100.Image'Access);
+      This.Up_Minutes.Set_Image (up_200x100.Image);
       This.Up_Minutes.Set_Size ((200, 100));
       This.Add_Child (This.Up_Minutes'Unchecked_Access, (450, 10));
 
       This.Down_Hours.Disable_Frame;
       This.Down_Hours.Disable_Background;
-      This.Down_Hours.Set_Image (down_200x100.Image'Access);
+      This.Down_Hours.Set_Image (down_200x100.Image);
       This.Down_Hours.Set_Size ((200, 100));
       This.Add_Child (This.Down_Hours'Unchecked_Access, (75, 370));
 
       This.Down_Minutes.Disable_Frame;
       This.Down_Minutes.Disable_Background;
-      This.Down_Minutes.Set_Image (down_200x100.Image'Access);
+      This.Down_Minutes.Set_Image (down_200x100.Image);
       This.Down_Minutes.Set_Size ((200, 100));
       This.Add_Child (This.Down_Minutes'Unchecked_Access, (450, 370));
 
-      This.Set_Top_Image (ok_100x100.Image'Access);
+      This.Set_Top_Image (ok_80x80.Image);
       This.Set_Icon_Image (This.Icon);
-      This.Set_Bottom_Image (cancel_100x100.Image'Access);
+      This.Set_Bottom_Image (cancel_80x80.Image);
 
       This.Clock.Set_Time (0, 0);
       This.Clock.Set_Size (This.Clock.Required_Size);

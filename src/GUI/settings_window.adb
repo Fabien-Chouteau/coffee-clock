@@ -1,7 +1,6 @@
-with calandar_100x100;
-with alarm_100x100;
-with clock_100x100;
-with ok_100x100;
+with Giza.Window; use Giza.Window;
+with calandar_80x80;
+with ok_80x80;
 with Giza.GUI;
 with Dialog_Window; use Dialog_Window;
 with Ada.Text_IO; use Ada.Text_IO;
@@ -16,16 +15,16 @@ package body Settings_Window is
      (This : in out Instance)
    is
    begin
-      This.Alarm.Set_Image (alarm_100x100.Image'Access);
+      This.Alarm.Set_Image (alarm_80x80.Image);
       This.Alarm.Disable_Frame;
 
-      This.Clock.Set_Image (clock_100x100.Image'Access);
+      This.Clock.Set_Image (clock_80x80.Image);
       This.Clock.Disable_Frame;
 
-      This.Calandar.Set_Image (calandar_100x100.Image'Access);
+      This.Calandar.Set_Image (calandar_80x80.Image);
       This.Calandar.Disable_Frame;
 
-      This.Back.Set_Image (ok_100x100.Image'Access);
+      This.Back.Set_Image (ok_80x80.Image);
       This.Back.Disable_Frame;
 
       This.Tile.Set_Size (This.Get_Size);

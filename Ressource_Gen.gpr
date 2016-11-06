@@ -15,6 +15,7 @@ project Ressource_Gen is
       for Object_File_Suffix ("BMP") use ".ads";
       for Object_File_Switches ("BMP") use ("-o");
       for Object_Path_Switches ("BMP") use ("-d");
+      for Switches ("BMP") use ("--dma2d");
    end Compiler;
 
    package Naming is

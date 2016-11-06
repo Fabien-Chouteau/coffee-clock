@@ -1,6 +1,7 @@
 with Giza.GUI;
 with Giza.Colors; use Giza.Colors;
 with Giza.Window; use Giza.Window;
+with Giza.Image.Procedural;
 
 package body Clock_Window is
 
@@ -13,16 +14,14 @@ package body Clock_Window is
 
    procedure Draw_Menu_Icon (Ctx  : in out Giza.Context.Class;
                              Size : Size_T) is
+      pragma Unreferenced (Size);
 
-      Rect_Size : constant Size_T := (6, 40);
+      Rect_Size : constant Size_T := (40, 6);
    begin
-      Ctx.Set_Color (Black);
-      Ctx.Fill_Rectangle (((0, 0), Size));
-
       Ctx.Set_Color (White);
       Ctx.Fill_Rectangle (((5, 5), Rect_Size));
-      Ctx.Fill_Rectangle (((20, 5), Rect_Size));
-      Ctx.Fill_Rectangle (((35, 5), Rect_Size));
+      Ctx.Fill_Rectangle (((5, 20), Rect_Size));
+      Ctx.Fill_Rectangle (((5, 35), Rect_Size));
    end Draw_Menu_Icon;
 
    -------------
@@ -36,13 +35,13 @@ package body Clock_Window is
    begin
       This.Set_Background (Black);
 
-      Draw_Menu_Icon (This.Btn_Bitmap.Get_Context.all, This.Btn_Bitmap.Size);
-      This.Settings_Btn.Set_Size ((50, 50));
-      This.Settings_Btn.Set_Image (This.Btn_Bitmap'Unchecked_Access);
+      This.Settings_Btn.Set_Size ((100, 100));
+      This.Settings_Btn.Set_Image (new Giza.Image.Procedural.Instance
+                                   (Draw_Menu_Icon'Access, 50, 50));
       This.Settings_Btn.Disable_Frame;
 
       This.Add_Child (This.Settings_Btn'Unchecked_Access,
-                      (Size.W - 75, 25));
+                      (Size.W - 125, 25));
 
       This.Clock.Set_Size (This.Clock.Required_Size);
       This.Add_Child (This.Clock'Unchecked_Access,

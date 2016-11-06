@@ -1,8 +1,8 @@
 with Giza.Colors; use Giza.Colors;
 with Dialog_Window; use Dialog_Window;
 
-with ok_100x100;
-with cancel_100x100;
+with ok_80x80;
+with cancel_80x80;
 with calandar_80x80;
 with up_200x100;
 with down_200x100;
@@ -26,43 +26,43 @@ package body Date_Select_Window is
 
       This.Up_M.Disable_Frame;
       This.Up_M.Disable_Background;
-      This.Up_M.Set_Image (Up_Bmp.Image'Access);
-      This.Up_M.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Up_M.Set_Image (Up_Bmp.Image);
+      This.Up_M.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Up_M'Unchecked_Access, (50, 10));
 
       This.Up_D.Disable_Frame;
       This.Up_D.Disable_Background;
-      This.Up_D.Set_Image (Up_Bmp.Image'Access);
-      This.Up_D.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Up_D.Set_Image (Up_Bmp.Image);
+      This.Up_D.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Up_D'Unchecked_Access, (250, 10));
 
       This.Up_Y.Disable_Frame;
       This.Up_Y.Disable_Background;
-      This.Up_Y.Set_Image (Up_Bmp.Image'Access);
-      This.Up_Y.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Up_Y.Set_Image (Up_Bmp.Image);
+      This.Up_Y.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Up_Y'Unchecked_Access, (450, 10));
 
       This.Down_M.Disable_Frame;
       This.Down_M.Disable_Background;
-      This.Down_M.Set_Image (Down_Bmp.Image'Access);
-      This.Down_M.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Down_M.Set_Image (Down_Bmp.Image);
+      This.Down_M.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Down_M'Unchecked_Access, (50, 370));
 
       This.Down_D.Disable_Frame;
       This.Down_D.Disable_Background;
-      This.Down_D.Set_Image (Down_Bmp.Image'Access);
-      This.Down_D.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Down_D.Set_Image (Down_Bmp.Image);
+      This.Down_D.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Down_D'Unchecked_Access, (250, 370));
 
       This.Down_Y.Disable_Frame;
       This.Down_Y.Disable_Background;
-      This.Down_Y.Set_Image (Down_Bmp.Image'Access);
-      This.Down_Y.Set_Size ((Up_Bmp.Data.W, Up_Bmp.Data.H));
+      This.Down_Y.Set_Image (Down_Bmp.Image);
+      This.Down_Y.Set_Size ((Up_Bmp.Image.Size.W, Up_Bmp.Image.Size.H));
       This.Add_Child (This.Down_Y'Unchecked_Access, (450, 370));
 
-      This.Set_Top_Image (ok_100x100.Image'Access);
-      This.Set_Icon_Image (calandar_80x80.Image'Access);
-      This.Set_Bottom_Image (cancel_100x100.Image'Access);
+      This.Set_Top_Image (ok_80x80.Image);
+      This.Set_Icon_Image (calandar_80x80.Image);
+      This.Set_Bottom_Image (cancel_80x80.Image);
 
       This.Set_Background (Black);
       This.Date.Set_Size (This.Date.Required_Size);
