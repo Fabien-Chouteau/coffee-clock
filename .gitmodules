@@ -1,3 +1,6 @@
 [submodule "Giza"]
 	path = Giza
 	url = https://github.com/Fabien-Chouteau/Giza.git
+[submodule "Ada_Drivers_Library"]
+	path = Ada_Drivers_Library
+	url = https://github.com/AdaCore/Ada_Drivers_Library.git
