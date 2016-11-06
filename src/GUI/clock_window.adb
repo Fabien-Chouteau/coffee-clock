@@ -39,6 +39,7 @@ package body Clock_Window is
       This.Settings_Btn.Set_Image (new Giza.Image.Procedural.Instance
                                    (Draw_Menu_Icon'Access, 50, 50));
       This.Settings_Btn.Disable_Frame;
+      This.Settings_Btn.Disable_Background;
 
       This.Add_Child (This.Settings_Btn'Unchecked_Access,
                       (Size.W - 125, 25));
