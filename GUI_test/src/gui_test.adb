@@ -7,7 +7,7 @@ pragma Warnings (Off, "*not referenced");
 with Utils;
 pragma Warnings (On, "*not referenced");
 
-procedure Main is
+procedure GUI_Test is
 begin
 
    Screen_Interface.Initialize;
@@ -18,4 +18,4 @@ begin
    Push (new Clock_Window.Instance);
 
    Event_Loop;
-end Main;
+end GUI_Test;
