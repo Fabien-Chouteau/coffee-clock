@@ -4,6 +4,9 @@ with ok_80x80;
 with Giza.GUI;
 with Dialog_Window; use Dialog_Window;
 with Ada.Text_IO; use Ada.Text_IO;
+with HAL.Real_Time_Clock;
+with Real_Time_Clock;
+with Alarm_Handling;
 
 package body Settings_Window is
 
@@ -42,18 +45,25 @@ package body Settings_Window is
 
    overriding
    procedure On_Displayed (This : in out Instance) is
+      Date : HAL.Real_Time_Clock.RTC_Date;
+      Time : HAL.Real_Time_Clock.RTC_Time;
    begin
       if This.Select_Alarm.Get_Answer = Answer_Top then
          Put_Line ("We have a new alarm");
          This.Select_Alarm.Clear_Answer;
+         Alarm_Handling.Set_Alarm_Time (This.Select_Alarm.Get_Time);
       end if;
       if This.Select_Clock.Get_Answer = Answer_Top then
          Put_Line ("We have a new Clock");
          This.Select_Clock.Clear_Answer;
+         Date := Real_Time_Clock.Get_Date;
+         Real_Time_Clock.Set (This.Select_Clock.Get_Time, Date);
       end if;
       if This.Select_Date.Get_Answer = Answer_Top then
          Put_Line ("We have a new Date");
          This.Select_Date.Clear_Answer;
+         Time := Real_Time_Clock.Get_Time;
+         Real_Time_Clock.Set (Time, This.Select_Date.Get_Date);
       end if;
    end On_Displayed;
 
@@ -71,12 +81,15 @@ package body Settings_Window is
       if On_Position_Event (Parent (This), Evt, Pos) then
          if This.Alarm.Active then
             This.Alarm.Set_Active (False);
+            This.Select_Alarm.Set_Time (Alarm_Handling.Get_Alarm_Time);
             Giza.GUI.Push (This.Select_Alarm'Unchecked_Access);
          elsif This.Clock.Active then
             This.Clock.Set_Active (False);
+            This.Select_Clock.Set_Time (Real_Time_Clock.Get_Time);
             Giza.GUI.Push (This.Select_Clock'Unchecked_Access);
          elsif This.Calandar.Active then
             This.Calandar.Set_Active (False);
+            This.Select_Date.Set_Date (Real_Time_Clock.Get_Date);
             Giza.GUI.Push (This.Select_Date'Unchecked_Access);
          elsif This.Back.Active then
             This.Back.Set_Active (False);

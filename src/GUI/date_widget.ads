@@ -1,27 +1,21 @@
 with Giza.Widget;
 with Giza.Context;
 with Giza.Types; use Giza.Types;
+with HAL.Real_Time_Clock; use HAL.Real_Time_Clock;
 
 package Date_Widget is
 
-   type Month_T is (January, February, March, April, May, June, July, August,
-                    September, October, November, December);
-   type Day_Of_Week_T is (Monday, Tuesday, Wednesday, Thursday, Friday,
-                          Saturday, Sunday);
-   type Day_T is range 1 .. 31;
-   type Year_T is new Integer;
+   function Next (Day_Of_Week : RTC_Day_Of_Week) return RTC_Day_Of_Week;
+   function Prev (Day_Of_Week : RTC_Day_Of_Week) return RTC_Day_Of_Week;
 
-   function Next (Day_Of_Week : Day_Of_Week_T) return Day_Of_Week_T;
-   function Prev (Day_Of_Week : Day_Of_Week_T) return Day_Of_Week_T;
+   function Next (Month : RTC_Month) return RTC_Month;
+   function Prev (Month : RTC_Month) return RTC_Month;
 
-   function Next (Month : Month_T) return Month_T;
-   function Prev (Month : Month_T) return Month_T;
+   function Next (Day : RTC_Day) return RTC_Day;
+   function Prev (Day : RTC_Day) return RTC_Day;
 
-   function Next (Day : Day_T) return Day_T;
-   function Prev (Day : Day_T) return Day_T;
-
-   function Next (Year : Year_T) return Year_T;
-   function Prev (Year : Year_T) return Year_T;
+   function Next (Year : RTC_Year) return RTC_Year;
+   function Prev (Year : RTC_Year) return RTC_Year;
 
    subtype Parent is Giza.Widget.Instance;
    type Instance (Show_Day_Of_Week : Boolean) is new Parent with private;
@@ -33,26 +27,17 @@ package Date_Widget is
                    Ctx   : in out Giza.Context.Class;
                    Force : Boolean := True);
 
-   procedure Set_Date (This        : in out Instance;
-                       Day         : Day_T;
-                       Day_Of_Week : Day_Of_Week_T;
-                       Month       : Month_T;
-                       Year        : Year_T);
+   procedure Set_Date (This : in out Instance;
+                       Date : HAL.Real_Time_Clock.RTC_Date);
 
-   procedure Get_Date (This        : in out Instance;
-                       Day         : out Day_T;
-                       Day_Of_Week : out Day_Of_Week_T;
-                       Month       : out Month_T;
-                       Year        : out Year_T);
+   function Get_Date (This : Instance)
+                       return HAL.Real_Time_Clock.RTC_Date;
 
    function Required_Size (This : Instance) return Size_T;
 private
 
    type Instance (Show_Day_Of_Week : Boolean) is new Parent with record
-      Day         : Day_T := 1;
-      Day_Of_Week : Day_Of_Week_T := Monday;
-      Month       : Month_T := January;
-      Year        : Year_T := 1987;
+      Date : HAL.Real_Time_Clock.RTC_Date;
    end record;
 
 end Date_Widget;

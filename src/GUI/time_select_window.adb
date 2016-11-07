@@ -47,7 +47,6 @@ package body Time_Select_Window is
       This.Set_Icon_Image (This.Icon);
       This.Set_Bottom_Image (cancel_80x80.Image);
 
-      This.Clock.Set_Time (0, 0);
       This.Clock.Set_Size (This.Clock.Required_Size);
       This.Add_Child (This.Clock'Unchecked_Access,
                       ((Size.W - This.Clock.Get_Size.W) / 2,
@@ -88,27 +87,26 @@ package body Time_Select_Window is
       Pos   : Point_T)
       return Boolean
    is
-      use type Clock_Widget.Clock_Hour;
-      use type Clock_Widget.Clock_Minute;
-      Hours   : Clock_Widget.Clock_Hour;
-      Minutes : Clock_Widget.Clock_Minute;
+      use type HAL.Real_Time_Clock.RTC_Hour;
+      use type HAL.Real_Time_Clock.RTC_Minute;
+      Time : HAL.Real_Time_Clock.RTC_Time;
    begin
       if On_Position_Event (Parent (This), Evt, Pos) then
-         This.Clock.Get_Time (Hours, Minutes);
+         Time := This.Clock.Get_Time;
          if This.Up_Hours.Active then
             This.Up_Hours.Set_Active (False);
-            Hours := Hours + 1;
+            Time.Hour := Time.Hour + 1;
          elsif This.Down_Hours.Active then
             This.Down_Hours.Set_Active (False);
-            Hours := Hours - 1;
+            Time.Hour := Time.Hour - 1;
          elsif This.Up_Minutes.Active then
             This.Up_Minutes.Set_Active (False);
-            Minutes := Minutes + 1;
+            Time.Min := Time.Min + 1;
          elsif This.Down_Minutes.Active then
             This.Down_Minutes.Set_Active (False);
-            Minutes := Minutes - 1;
+            Time.Min := Time.Min - 1;
          end if;
-         This.Clock.Set_Time (Hours, Minutes);
+         This.Clock.Set_Time (Time);
          return True;
       else
          return False;
@@ -119,24 +117,18 @@ package body Time_Select_Window is
    -- Set_Time --
    --------------
 
-   procedure Set_Time (This    : in out Instance;
-                       Hours   : Clock_Widget.Clock_Hour;
-                       Minutes : Clock_Widget.Clock_Minute)
+   procedure Set_Time (This : in out Instance;
+                       Time : HAL.Real_Time_Clock.RTC_Time)
    is
    begin
-      This.Clock.Set_Time (Hours, Minutes);
+      This.Clock.Set_Time (Time);
    end Set_Time;
 
    --------------
    -- Get_Time --
    --------------
 
-   procedure Get_Time (This    : Instance;
-                       Hours   : out Clock_Widget.Clock_Hour;
-                       Minutes : out Clock_Widget.Clock_Minute)
-   is
-   begin
-      This.Clock.Get_Time (Hours, Minutes);
-   end Get_Time;
+   function Get_Time (This : Instance) return HAL.Real_Time_Clock.RTC_Time is
+        (This.Clock.Get_Time);
 
 end Time_Select_Window;

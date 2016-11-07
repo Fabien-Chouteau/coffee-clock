@@ -2,11 +2,41 @@ with Giza.GUI;
 with Giza.Colors; use Giza.Colors;
 with Giza.Window; use Giza.Window;
 with Giza.Image.Procedural;
+with Giza.Timers;
+with Ada.Real_Time; use Ada.Real_Time;
+with Real_Time_Clock;
 
 package body Clock_Window is
 
+   type Repeat_Event is new Timer_Event with record
+      Repeat_Time : Time_Span := Milliseconds (500);
+      Redraw      : aliased Giza.Events.Redraw_Event;
+      Enabled     : Boolean := False;
+   end record;
+
+   overriding
+   function Triggered (This : Repeat_Event) return Boolean;
+
    procedure Draw_Menu_Icon (Ctx  : in out Giza.Context.Class;
                              Size : Size_T);
+
+   Redraw_Timer : aliased Repeat_Event;
+
+   ---------------
+   -- Triggered --
+   ---------------
+
+   overriding
+   function Triggered (This : Repeat_Event) return Boolean is
+   begin
+      if This.Enabled then
+         Giza.GUI.Emit (This.Redraw'Unchecked_Access);
+      end if;
+
+      Giza.Timers.Set_Timer (This'Unchecked_Access,
+                             Clock + This.Repeat_Time);
+      return True;
+   end Triggered;
 
    --------------------
    -- Draw_Menu_Icon --
@@ -53,6 +83,10 @@ package body Clock_Window is
       This.Add_Child (This.Date'Unchecked_Access,
                       ((Size.W - This.Date.Get_Size.W) / 2,
                        (Size.H - This.Date.Get_Size.H)));
+
+      --  Start the redraw timer
+      Giza.Timers.Set_Timer (Redraw_Timer'Unchecked_Access,
+                             Clock + Redraw_Timer.Repeat_Time);
    end On_Init;
 
    ------------------
@@ -62,8 +96,9 @@ package body Clock_Window is
    overriding procedure On_Displayed
      (This : in out Instance)
    is
+      pragma Unreferenced (This);
    begin
-      null;
+      Redraw_Timer.Enabled := True;
    end On_Displayed;
 
    ---------------
@@ -73,8 +108,9 @@ package body Clock_Window is
    overriding procedure On_Hidden
      (This : in out Instance)
    is
+      pragma Unreferenced (This);
    begin
-      null;
+      Redraw_Timer.Enabled := False;
    end On_Hidden;
 
    ----------
@@ -87,6 +123,8 @@ package body Clock_Window is
                    Force : Boolean := False)
    is
    begin
+      This.Clock.Set_Time (Real_Time_Clock.Get_Time);
+      This.Date.Set_Date (Real_Time_Clock.Get_Date);
       Draw (Parent (This), Ctx, Force);
    end Draw;
 
@@ -118,25 +156,21 @@ package body Clock_Window is
    -- Set_Time --
    --------------
 
-   procedure Set_Time (This    : in out Instance;
-                       Hours   : Clock_Widget.Clock_Hour;
-                       Minutes : Clock_Widget.Clock_Minute)
+   procedure Set_Time (This : in out Instance;
+                       Time : HAL.Real_Time_Clock.RTC_Time)
    is
    begin
-      This.Clock.Set_Time (Hours, Minutes);
+      This.Clock.Set_Time (Time);
    end Set_Time;
 
    --------------
    -- Set_Date --
    --------------
 
-   procedure Set_Date (This        : in out Instance;
-                       Day         : Date_Widget.Day_T;
-                       Day_Of_Week : Date_Widget.Day_Of_Week_T;
-                       Month       : Date_Widget.Month_T;
-                       Year        : Date_Widget.Year_T)
+   procedure Set_Date (This : in out Instance;
+                       Date : HAL.Real_Time_Clock.RTC_Date)
    is
    begin
-      This.Date.Set_Date (Day, Day_Of_Week, Month, Year);
+      This.Date.Set_Date (Date);
    end Set_Date;
 end Clock_Window;

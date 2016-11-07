@@ -6,6 +6,7 @@ with Giza.Events; use Giza.Events;
 with Giza.Types; use Giza.Types;
 with Dialog_Window;
 with Clock_Widget;
+with HAL.Real_Time_Clock;
 
 package Time_Select_Window is
 
@@ -30,13 +31,10 @@ package Time_Select_Window is
       Pos   : Point_T)
       return Boolean;
 
-   procedure Set_Time (This    : in out Instance;
-                       Hours   : Clock_Widget.Clock_Hour;
-                       Minutes : Clock_Widget.Clock_Minute);
+   procedure Set_Time (This : in out Instance;
+                       Time : HAL.Real_Time_Clock.RTC_Time);
 
-   procedure Get_Time (This    : Instance;
-                       Hours   : out Clock_Widget.Clock_Hour;
-                       Minutes : out Clock_Widget.Clock_Minute);
+   function Get_Time (This : Instance) return HAL.Real_Time_Clock.RTC_Time;
 
 private
 

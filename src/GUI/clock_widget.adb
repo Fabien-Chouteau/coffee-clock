@@ -69,14 +69,14 @@ package body Clock_Widget is
       Ctx.Set_Color (Black);
       Ctx.Fill_Rectangle (((0, 0), This.Get_Size));
 
-      Draw_Digit (Integer (This.Hours) / 10);
-      Draw_Digit (Integer (This.Hours) mod 10);
+      Draw_Digit (Integer (This.Time.Hour) / 10);
+      Draw_Digit (Integer (This.Time.Hour) mod 10);
 
       Ctx.Draw_Image (colon.Image.all, (Digit_Pos_X, Digit_Pos_Y));
       Digit_Pos_X := Digit_Pos_X + colon.Image.Size.W;
 
-      Draw_Digit (Integer (This.Minutes) / 10);
-      Draw_Digit (Integer (This.Minutes) mod 10);
+      Draw_Digit (Integer (This.Time.Min) / 10);
+      Draw_Digit (Integer (This.Time.Min) mod 10);
    end Draw;
 
    --------------
@@ -84,13 +84,11 @@ package body Clock_Widget is
    --------------
 
    procedure Set_Time
-     (This    : in out Instance;
-      Hours   : Clock_Hour;
-      Minutes : Clock_Minute)
+     (This : in out Instance;
+      Time : HAL.Real_Time_Clock.RTC_Time)
    is
    begin
-      This.Hours   := Hours;
-      This.Minutes := Minutes;
+      This.Time := Time;
       This.Set_Dirty;
    end Set_Time;
 
@@ -98,14 +96,8 @@ package body Clock_Widget is
    -- Get_Time --
    --------------
 
-   procedure Get_Time (This    : Instance;
-                       Hours   : out Clock_Hour;
-                       Minutes : out Clock_Minute)
-   is
-   begin
-      Hours := This.Hours;
-      Minutes := This.Minutes;
-   end Get_Time;
+   function Get_Time (This : Instance) return HAL.Real_Time_Clock.RTC_Time is
+      (This.Time);
 
    -------------------
    -- Required_Size --

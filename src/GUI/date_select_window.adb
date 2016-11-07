@@ -105,33 +105,30 @@ package body Date_Select_Window is
       Pos   : Point_T)
       return Boolean
    is
-      Day         : Date_Widget.Day_T;
-      Day_Of_Week : Date_Widget.Day_Of_Week_T;
-      Month       : Date_Widget.Month_T;
-      Year        : Date_Widget.Year_T;
+      Date : HAL.Real_Time_Clock.RTC_Date;
    begin
       if On_Position_Event (Parent (This), Evt, Pos) then
-         This.Date.Get_Date (Day, Day_Of_Week, Month, Year);
+         Date := This.Date.Get_Date;
          if This.Up_M.Active then
             This.Up_M.Set_Active (False);
-            Month := Next (Month);
+            Date.Month := Next (Date.Month);
          elsif This.Down_M.Active then
             This.Down_M.Set_Active (False);
-            Month := Prev (Month);
+            Date.Month := Prev (Date.Month);
          elsif This.Up_D.Active then
             This.Up_D.Set_Active (False);
-            Day := Next (Day);
+            Date.Day := Next (Date.Day);
          elsif This.Down_D.Active then
             This.Down_D.Set_Active (False);
-            Day := Prev (Day);
+            Date.Day := Prev (Date.Day);
          elsif This.Up_Y.Active then
             This.Up_Y.Set_Active (False);
-            Year := Next (Year);
+            Date.Year := Next (Date.Year);
          elsif This.Down_Y.Active then
             This.Down_Y.Set_Active (False);
-            Year := Prev (Year);
+            Date.Year := Prev (Date.Year);
          end if;
-         This.Date.Set_Date (Day, Day_Of_Week, Month, Year);
+         This.Date.Set_Date (Date);
          return True;
       else
          return False;
@@ -143,29 +140,18 @@ package body Date_Select_Window is
    --------------
 
    procedure Set_Date
-     (This        : in out Instance;
-      Day         : Date_Widget.Day_T;
-      Day_Of_Week : Date_Widget.Day_Of_Week_T;
-      Month       : Date_Widget.Month_T;
-      Year        : Date_Widget.Year_T)
+     (This : in out Instance;
+      Date : HAL.Real_Time_Clock.RTC_Date)
    is
    begin
-      This.Date.Set_Date (Day, Day_Of_Week, Month, Year);
+      This.Date.Set_Date (Date);
    end Set_Date;
 
    --------------
    -- Get_Date --
    --------------
 
-   procedure Get_Date
-     (This        : in out Instance;
-      Day         : out Date_Widget.Day_T;
-      Day_Of_Week : out Date_Widget.Day_Of_Week_T;
-      Month       : out Date_Widget.Month_T;
-      Year        : out Date_Widget.Year_T)
-   is
-   begin
-      This.Date.Get_Date (Day, Day_Of_Week, Month, Year);
-   end Get_Date;
+   function Get_Date (This : Instance) return HAL.Real_Time_Clock.RTC_Date
+   is (This.Date.Get_Date);
 
 end Date_Select_Window;

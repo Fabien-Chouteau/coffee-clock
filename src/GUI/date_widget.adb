@@ -5,20 +5,21 @@ package body Date_Widget is
 
    package Selected_Font renames Giza.Bitmap_Fonts.FreeSansBold18pt7b;
 
-   function Image (Day_Of_Week : Day_Of_Week_T) return String;
-   function Image (Month : Month_T) return String;
-   function Image (Day : Day_T) return String;
+   function Image (Day_Of_Week : RTC_Day_Of_Week) return String;
+   function Image (Month : RTC_Month) return String;
+   function Image (Day : RTC_Day) return String;
+   function Image (Year : RTC_Year) return String;
 
    ----------
    -- Next --
    ----------
 
-   function Next (Day_Of_Week : Day_Of_Week_T) return Day_Of_Week_T is
+   function Next (Day_Of_Week : RTC_Day_Of_Week) return RTC_Day_Of_Week is
    begin
-      if Day_Of_Week = Day_Of_Week_T'Last then
-         return Day_Of_Week_T'First;
+      if Day_Of_Week = RTC_Day_Of_Week'Last then
+         return RTC_Day_Of_Week'First;
       else
-         return Day_Of_Week_T'Succ (Day_Of_Week);
+         return RTC_Day_Of_Week'Succ (Day_Of_Week);
       end if;
    end Next;
 
@@ -26,12 +27,12 @@ package body Date_Widget is
    -- Prev --
    ----------
 
-   function Prev (Day_Of_Week : Day_Of_Week_T) return Day_Of_Week_T is
+   function Prev (Day_Of_Week : RTC_Day_Of_Week) return RTC_Day_Of_Week is
    begin
-      if Day_Of_Week = Day_Of_Week_T'First then
-         return Day_Of_Week_T'Last;
+      if Day_Of_Week = RTC_Day_Of_Week'First then
+         return RTC_Day_Of_Week'Last;
       else
-         return Day_Of_Week_T'Pred (Day_Of_Week);
+         return RTC_Day_Of_Week'Pred (Day_Of_Week);
       end if;
    end Prev;
 
@@ -39,12 +40,12 @@ package body Date_Widget is
    -- Next --
    ----------
 
-   function Next (Month : Month_T) return Month_T is
+   function Next (Month : RTC_Month) return RTC_Month is
    begin
-      if Month = Month_T'Last then
-         return Month_T'First;
+      if Month = RTC_Month'Last then
+         return RTC_Month'First;
       else
-         return Month_T'Succ (Month);
+         return RTC_Month'Succ (Month);
       end if;
    end Next;
 
@@ -52,12 +53,12 @@ package body Date_Widget is
    -- Prev --
    ----------
 
-   function Prev (Month : Month_T) return Month_T is
+   function Prev (Month : RTC_Month) return RTC_Month is
    begin
-      if Month = Month_T'First then
-         return Month_T'Last;
+      if Month = RTC_Month'First then
+         return RTC_Month'Last;
       else
-         return Month_T'Pred (Month);
+         return RTC_Month'Pred (Month);
       end if;
    end Prev;
 
@@ -65,12 +66,12 @@ package body Date_Widget is
    -- Next --
    ----------
 
-   function Next (Day : Day_T) return Day_T is
+   function Next (Day : RTC_Day) return RTC_Day is
    begin
-      if Day = Day_T'Last then
-         return Day_T'First;
+      if Day = RTC_Day'Last then
+         return RTC_Day'First;
       else
-         return Day_T'Succ (Day);
+         return RTC_Day'Succ (Day);
       end if;
    end Next;
 
@@ -78,12 +79,12 @@ package body Date_Widget is
    -- Prev --
    ----------
 
-   function Prev (Day : Day_T) return Day_T is
+   function Prev (Day : RTC_Day) return RTC_Day is
    begin
-      if Day = Day_T'First then
-         return Day_T'Last;
+      if Day = RTC_Day'First then
+         return RTC_Day'Last;
       else
-         return Day_T'Pred (Day);
+         return RTC_Day'Pred (Day);
       end if;
    end Prev;
 
@@ -91,12 +92,12 @@ package body Date_Widget is
    -- Next --
    ----------
 
-   function Next (Year : Year_T) return Year_T is
+   function Next (Year : RTC_Year) return RTC_Year is
    begin
-      if Year = Year_T'Last then
-         return Year_T'First;
+      if Year = RTC_Year'Last then
+         return RTC_Year'First;
       else
-         return Year_T'Succ (Year);
+         return RTC_Year'Succ (Year);
       end if;
    end Next;
 
@@ -104,12 +105,12 @@ package body Date_Widget is
    -- Prev --
    ----------
 
-   function Prev (Year : Year_T) return Year_T is
+   function Prev (Year : RTC_Year) return RTC_Year is
    begin
-      if Year = Year_T'First then
-         return Year_T'Last;
+      if Year = RTC_Year'First then
+         return RTC_Year'Last;
       else
-         return Year_T'Pred (Year);
+         return RTC_Year'Pred (Year);
       end if;
    end Prev;
 
@@ -117,7 +118,7 @@ package body Date_Widget is
    -- Image --
    -----------
 
-   function Image (Day_Of_Week : Day_Of_Week_T) return String is
+   function Image (Day_Of_Week : RTC_Day_Of_Week) return String is
      (case Day_Of_Week is
          when Monday    => "Monday",
          when Tuesday   => "Tuesday",
@@ -131,32 +132,44 @@ package body Date_Widget is
    -- Image --
    -----------
 
-   function Image (Month : Month_T) return String is
+   function Image (Month : RTC_Month) return String is
      (case Month is
-         when January   => "Jan",
-         when February  => "Feb",
-         when March     => "Mar",
-         when April     => "Apr",
+         when January   => "January",
+         when February  => "February",
+         when March     => "March",
+         when April     => "April",
          when May       => "May",
-         when June      => "Jun",
-         when July      => "Jul",
-         when August    => "Aug",
-         when September => "Sep",
-         when October   => "Oct",
-         when November  => "Nov",
-         when December  => "Dec");
+         when June      => "June",
+         when July      => "July",
+         when August    => "August",
+         when September => "September",
+         when October   => "October",
+         when November  => "November",
+         when December  => "December");
 
    -----------
    -- Image --
    -----------
 
-   function Image (Day : Day_T) return String is
+   function Image (Day : RTC_Day) return String is
    begin
       return Day'Img & (case Day is
                            when 1 | 21 | 31 => "st",
                            when 2 | 22 => "nd",
                            when 3 | 23 => "rd",
                            when others => "th");
+   end Image;
+
+   -----------
+   -- Image --
+   -----------
+
+   function Image (Year : RTC_Year) return String is
+      Str : constant String := Year'Img;
+   begin
+      --  Remove the whitespace prefix of Ada's 'Image...
+      return (if Year < 10 then "200" else "20") &
+        Str (Str'First + 1 .. Str'Last);
    end Image;
 
    ----------
@@ -180,11 +193,11 @@ package body Date_Widget is
       Ctx.Set_Color (Red);
       Ctx.Print_In_Rect
         ((if This.Show_Day_Of_Week then
-              Image (This.Day_Of_Week) & ", "
+              Image (This.Date.Day_Of_Week) & ", "
          else "") &
-           Image (This.Month) &
-           Image (This.Day) & "," &
-           This.Year'Img,
+           Image (This.Date.Month) &
+           Image (This.Date.Day) & ", " &
+           Image (This.Date.Year),
          ((0, 0), This.Get_Size));
    end Draw;
 
@@ -193,17 +206,11 @@ package body Date_Widget is
    --------------
 
    procedure Set_Date
-     (This        : in out Instance;
-      Day         : Day_T;
-      Day_Of_Week : Day_Of_Week_T;
-      Month       : Month_T;
-      Year        : Year_T)
+     (This : in out Instance;
+      Date : HAL.Real_Time_Clock.RTC_Date)
    is
    begin
-      This.Day         := Day;
-      This.Day_Of_Week := Day_Of_Week;
-      This.Month       := Month;
-      This.Year        := Year;
+      This.Date := Date;
       This.Set_Dirty;
    end Set_Date;
 
@@ -211,19 +218,10 @@ package body Date_Widget is
    -- Get_Date --
    --------------
 
-   procedure Get_Date
-     (This        : in out Instance;
-      Day         : out Day_T;
-      Day_Of_Week : out Day_Of_Week_T;
-      Month       : out Month_T;
-      Year        : out Year_T)
-   is
-   begin
-      Day         := This.Day;
-      Day_Of_Week := This.Day_Of_Week;
-      Month       := This.Month;
-      Year        := This.Year;
-   end Get_Date;
+   function Get_Date
+     (This : Instance)
+     return HAL.Real_Time_Clock.RTC_Date
+   is (This.Date);
 
    -------------------
    -- Required_Size --

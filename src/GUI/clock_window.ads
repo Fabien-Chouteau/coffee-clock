@@ -7,6 +7,7 @@ with Giza.Types; use Giza.Types;
 with Settings_Window;
 with Clock_Widget;
 with Date_Widget;
+with HAL.Real_Time_Clock;
 
 package Clock_Window is
 
@@ -32,21 +33,17 @@ package Clock_Window is
       Pos   : Point_T)
       return Boolean;
 
-   procedure Set_Time (This    : in out Instance;
-                       Hours   : Clock_Widget.Clock_Hour;
-                       Minutes : Clock_Widget.Clock_Minute);
+   procedure Set_Time (This : in out Instance;
+                       Time : HAL.Real_Time_Clock.RTC_Time);
 
-   procedure Set_Date (This        : in out Instance;
-                       Day         : Date_Widget.Day_T;
-                       Day_Of_Week : Date_Widget.Day_Of_Week_T;
-                       Month       : Date_Widget.Month_T;
-                       Year        : Date_Widget.Year_T);
+   procedure Set_Date (This : in out Instance;
+                       Date : HAL.Real_Time_Clock.RTC_Date);
 private
 
    type Instance is new Parent with record
       Settings_Btn : aliased Button.Instance;
       Settings     : aliased Settings_Window.Instance;
       Clock        : aliased Clock_Widget.Instance;
-      Date         : aliased Date_Widget.Instance (Show_Day_Of_Week => True);
+      Date         : aliased Date_Widget.Instance (Show_Day_Of_Week => False);
    end record;
 end Clock_Window;

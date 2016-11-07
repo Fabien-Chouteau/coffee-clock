@@ -5,6 +5,7 @@ with Giza.Events; use Giza.Events;
 with Giza.Types; use Giza.Types;
 with Dialog_Window;
 with Date_Widget;
+with HAL.Real_Time_Clock;
 
 package Date_Select_Window is
 
@@ -29,17 +30,10 @@ package Date_Select_Window is
       Pos   : Point_T)
       return Boolean;
 
-   procedure Set_Date (This        : in out Instance;
-                       Day         : Date_Widget.Day_T;
-                       Day_Of_Week : Date_Widget.Day_Of_Week_T;
-                       Month       : Date_Widget.Month_T;
-                       Year        : Date_Widget.Year_T);
+   procedure Set_Date (This : in out Instance;
+                       Date : HAL.Real_Time_Clock.RTC_Date);
 
-   procedure Get_Date (This        : in out Instance;
-                       Day         : out Date_Widget.Day_T;
-                       Day_Of_Week : out Date_Widget.Day_Of_Week_T;
-                       Month       : out Date_Widget.Month_T;
-                       Year        : out Date_Widget.Year_T);
+   function Get_Date (This : Instance) return HAL.Real_Time_Clock.RTC_Date;
 
 private
 

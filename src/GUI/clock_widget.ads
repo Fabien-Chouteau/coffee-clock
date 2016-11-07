@@ -1,11 +1,9 @@
 with Giza.Widget;
 with Giza.Context;
 with Giza.Types; use Giza.Types;
+with HAL.Real_Time_Clock;
 
 package Clock_Widget is
-
-   type Clock_Hour is mod 24;
-   type Clock_Minute is mod 60;
 
    subtype Parent is Giza.Widget.Instance;
    type Instance is new Parent with private;
@@ -17,20 +15,16 @@ package Clock_Widget is
                    Ctx   : in out Giza.Context.Class;
                    Force : Boolean := True);
 
-   procedure Set_Time (This    : in out Instance;
-                       Hours   : Clock_Hour;
-                       Minutes : Clock_Minute);
+   procedure Set_Time (This : in out Instance;
+                       Time : HAL.Real_Time_Clock.RTC_Time);
 
-   procedure Get_Time (This    : Instance;
-                       Hours   : out Clock_Hour;
-                       Minutes : out Clock_Minute);
+   function Get_Time (This : Instance) return HAL.Real_Time_Clock.RTC_Time;
 
    function Required_Size (This : Instance) return Size_T;
 private
 
    type Instance is new Parent with record
-      Hours   : Clock_Hour   := 12;
-      Minutes : Clock_Minute := 00;
+      Time : HAL.Real_Time_Clock.RTC_Time;
    end record;
 
 end Clock_Widget;
