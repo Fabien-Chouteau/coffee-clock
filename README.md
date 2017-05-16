@@ -11,6 +11,9 @@ Now it is time to deliver :)
 The basic idea is to control the espresso machine from an STM32F469 board and
 use the beautiful screen to display the clock face and configuration interface.
 
+Read the blog post for more info:
+[DIY Coffee Alarm Clock](http://blog.adacore.com/diy-coffee-alarm-clock)
+
 ##  Build instructions
 
 - Make sure to get all the Git submodules:
